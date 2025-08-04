@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'selector',
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
@@ -8,7 +9,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        Montserrat: ['Montserrat', sans-serif],
+        Montserrat: ['Montserrat', "sans-serif"],
       },
     },
   },
