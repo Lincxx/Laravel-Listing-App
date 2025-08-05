@@ -1,12 +1,13 @@
 <script setup>
 import { switchTheme } from '../theme';
+import NavLink from '../Components/NavLink.vue';
 
 </script>
 
 <template>
     <header class="bg-slate-800 text-white">
         <nav class="p-6 mx-auto max-w-screen-lg flex justify-between items-center">
-            <Link :href="route('home')">Home</Link>
+            <NavLink routeName="home">Home</NavLink>
             <div>
                 <button
                     @click="switchTheme"
