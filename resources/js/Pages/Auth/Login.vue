@@ -5,45 +5,47 @@ import TextLink from '../../Components/TextLink.vue';
 import InputField from '../../Components/InputField.vue';
 import PrimaryBtn from '../../Components/PrimaryBtn.vue';
 import ErrorMessage from '../../Components/ErrorMessage.vue';
+import Checkbox from '../../Components/CheckBox.vue';
 import { useForm } from "@inertiajs/vue3";
 
 
 const form = useForm({
-    name: '',
     email: '',
     password: '',
-    password_confirmation: '',
+    remember: null
 });
 
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+    form.post(route('login'), {
+        onFinish: () => form.reset('password'),
     });
 }
 </script>
 
 <template>
-<Head title="Register"/>
+    <Head title="Login"/>
     <Container class="w-1/2">
         <div class="text-center mb-8">
-            <Title>Register a new account</Title>
-            <p>Aleady have an account? 
-                <TextLink routeName="login" label="Login" />
+            <Title>Login to your account</Title>
+            <p>Need an account? 
+                <TextLink routeName="register" label="Register" />
             </p>
         </div>
 
         <!-- errors messages -->
         <ErrorMessage :errors="form.errors"/>
+
         <form @submit.prevent="submit" class="space-y-6">
-            <InputField label="Name" icon="id-badge" type="text" v-model="form.name"/>
+          
             <InputField label="Email" icon="at" type="email" v-model="form.email"/>
             <InputField label="Password" icon="key" type="password" v-model="form.password"/>
-            <InputField label="Password Confirmation" icon="key" type="password" v-model="form.password_confirmation"/>
+        
+            <div class="flex items-center justify-between">
+                <Checkbox name="remember" v-model="form.remember">Remember me</Checkbox>
+                <TextLink routeName="home" label="Forgot Password" />
+            </div>
 
-            <p class="text-slate-500 text-sm dark:text-slate-400">
-                By registering, you agree to the <TextLink routeName="home" label="Terms of Service" /> and <TextLink routeName="home" label="Privacy Policy" />
-            </p>
-            <PrimaryBtn :disabled="form.processing">Register</PrimaryBtn>
+            <PrimaryBtn :disabled="form.processing">login</PrimaryBtn>
         </form>
     </Container>
 </template>
