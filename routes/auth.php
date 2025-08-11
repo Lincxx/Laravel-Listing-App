@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AuthenticateController;
 use App\Http\Controllers\Auth\EmailVerificationController;
-use Illuminate\Validation\Rules\Email;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 Route::middleware('guest')->group(function () {
     // --- Register
@@ -15,7 +15,15 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthenticateController::class, 'create'])->name('login');
     Route::post('/login', [AuthenticateController::class, 'store']);
     
-    
+    // --- Forgot password
+    Route::get('/forgot-password', [ResetPasswordController::class, 'requestPass'])->name('password.request');
+
+    // --- Reset password
+    Route::post('/forgot-password', [ResetPasswordController::class, 'sendEmail'])->name('password.email');
+
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetForm'])->name('password.reset');
+
+    Route::post('/reset-password', [ResetPasswordController::class, 'resetHandler'])->name('password.update');
 
 });
 
